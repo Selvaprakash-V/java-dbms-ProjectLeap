@@ -1,5 +1,7 @@
 package com.amazon.AmazonDemo.service;
 
+import ch.qos.logback.core.util.PropertySetterException;
+import com.amazon.AmazonDemo.exception.ProductNotFoundException;
 import com.amazon.AmazonDemo.model.Product;
 import com.amazon.AmazonDemo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,13 @@ public class ProductService {
         return repo.save(product);
     }
 
-    public String getAllProductById(int id) {
+    public String getAllProductById(int id) throws ProductNotFoundException {
         Optional<Product> products = repo.findById(id);
         if (products.isPresent()) {
             Product obj = products.get();
             return obj.toString();
         } else {
-            return "Product Not Found";
+            throw new ProductNotFoundException("Requested"+id+"is not present");
         }
     }
 
@@ -50,13 +52,13 @@ public class ProductService {
         }
     }
 
-    public String deleteProduct(int id) {
+    public String deleteProduct(int id) throws ProductNotFoundException {
         Optional<Product> products = repo.findById(id);
         if (products.isPresent()) {
             repo.deleteById(id);
             return "Deleted successfully";
-        } else {
-            return "Product not found";
+        } else{
+            throw new ProductNotFoundException("Requested "+id+" is not present");
         }
     }
 }
