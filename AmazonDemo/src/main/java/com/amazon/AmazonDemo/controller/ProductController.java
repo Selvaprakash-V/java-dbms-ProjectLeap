@@ -17,7 +17,7 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
-/*
+/* unwanted start
     @GetMapping
     public List<Product> getAllProducts() {
         return service.getAllProducts();
@@ -40,7 +40,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable int id){
         return service.deleteProduct(id);}
 
-        */
+     unwanted end   */
 
     @GetMapping
     public String getAllProducts(Model model) {

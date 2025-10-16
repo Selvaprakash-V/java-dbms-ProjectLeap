@@ -1,9 +1,6 @@
 package com.amazon.AmazonDemo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Product {
@@ -18,12 +15,25 @@ public class Product {
     private String description;
     private String review;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="purchaseOrder")
+    private PurchseOrder order;
+
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
@@ -50,20 +60,20 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getReview() {
         return review;
     }
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public PurchseOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(PurchseOrder order) {
+        this.order = order;
     }
 
     @Override
@@ -75,6 +85,7 @@ public class Product {
                 ", quantity=" + quantity +
                 ", description='" + description + '\'' +
                 ", review='" + review + '\'' +
+                ", order=" + order +
                 '}';
     }
 }
